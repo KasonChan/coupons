@@ -1,7 +1,79 @@
 <resources>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- Margin -->
+    <dimen name="activity_no_margin">0dp</dimen>
+    <dimen name="activity_margin">16dp</dimen>
 
+    <!-- Padding -->
+    <dimen name="activity_no_padding">0dp</dimen>
+    <dimen name="activity_padding">16dp</dimen>
+
+    <!-- Paper -->
+    <dimen name="paper_padding">16dp</dimen>
+    <dimen name="paper_height">48dp</dimen>
+    <dimen name="paper_margin">16dp</dimen>
+
+    <!-- Card -->
+    <dimen name="card_padding">16dp</dimen>
+    <dimen name="card_margin">16dp</dimen>
+    
+    <!-- Border -->
+    <dimen name="border_margin">8dp</dimen>
+    
+    <!-- Button -->
+    <dimen name="button_height">36dp</dimen>
+    <dimen name="button_min_width">64dp</dimen>
+    <dimen name="button_internal_padding">8dp</dimen>
+    <dimen name="button_margin">4dp</dimen>
+
+    <!-- Text sizes -->
+    <!-- Display -->
+    <dimen name="textSize_display4">122.0sp</dimen>
+    <dimen name="textSize_display3">56.0sp</dimen>
+    <dimen name="textSize_display2">122.0sp</dimen>
+    <dimen name="textSize_display1">34.0sp</dimen>
+
+    <!-- Headline -->
+    <dimen name="textSize_headline">24.0sp</dimen>
+
+    <!-- Title -->
+    <dimen name="textSize_title">20.0sp</dimen>
+
+    <!-- Subhead -->
+    <dimen name="textSize_subhead">16.0sp</dimen>
+
+    <!-- Body -->
+    <dimen name="textSize_body1">14.0sp</dimen>
+    <dimen name="textSize_body2">14.0sp</dimen>
+
+    <!-- Caption -->
+    <dimen name="textSize_caption">12.0sp</dimen>
+
+    <!-- Button -->
+    <dimen name="textSize_button">14.0sp</dimen>
+
+    <!-- Vertical spacing -->
+    <dimen name="verticalSpacing_actionBar">56.0dp</dimen>
+    <dimen name="verticalSpacing_title">48.0dp</dimen>
+    <dimen name="verticalSpacing_body">56.0dp</dimen>
+    
+    <!-- Horizontal spacing -->
+    <dimen name="horizontalSpacing_icon">56.0dp</dimen>
+    
+    <!-- Card z depth height -->
+    <dimen name="card_zdepth1_height">3dp</dimen>
+    
+    <!-- Z depth -->
+    <dimen name="zdepth1">5dp</dimen>
+    <dimen name="zdepth2">10dp</dimen>
+    <dimen name="zdepth3">25dp</dimen>
+    <dimen name="zdepth4">20dp</dimen>
+    <dimen name="zdepth5">25dp</dimen>
+
+    <!-- Screen -->
+    <dimen name="screen_small_width">320dp</dimen>
+    
+    <!-- Icon -->
+    <dimen name="icon_size">40.0dp</dimen>
 </resources>

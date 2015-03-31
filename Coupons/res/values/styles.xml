@@ -14,7 +14,169 @@
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
+
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="android:textSize">@dimen/textSize_body1</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <!-- Text -->
+    <!-- Display -->
+    <style name="text_display4" parent="AppTheme">
+        <item name="android:textSize">@dimen/textSize_display4</item>
+        <item name="android:textColor">@color/black_55</item>
+    </style>
+
+    <style name="text_display3" parent="AppTheme">
+        <item name="android:textSize">@dimen/textSize_display3</item>
+        <item name="android:textColor">@color/black_55</item>
+    </style>
+
+    <style name="text_display2" parent="AppTheme">
+        <item name="android:textSize">@dimen/textSize_display2</item>
+        <item name="android:textColor">@color/black_55</item>
+    </style>
+
+    <style name="text_display1" parent="AppTheme">
+        <item name="android:textSize">@dimen/textSize_display1</item>
+        <item name="android:textColor">@color/black_55</item>
+    </style>
+
+    <!-- Headline -->
+    <style name="text_headline_black" parent="AppTheme">
+        <item name="android:textSize">@dimen/textSize_headline</item>
+        <item name="android:textColor">@color/black_85</item>
+    </style>
+
+    <style name="text_headline_white" parent="AppTheme">
+        <item name="android:textSize">@dimen/textSize_headline</item>
+        <item name="android:textColor">@color/white_85</item>
+    </style>
+
+    <!-- Title -->
+    <style name="text_title_black" parent="AppTheme">
+        <item name="android:textSize">@dimen/textSize_title</item>
+        <item name="android:textColor">@color/black_85</item>
+    </style>
+
+    <style name="text_title_white" parent="AppTheme">
+        <item name="android:textSize">@dimen/textSize_title</item>
+        <item name="android:textColor">@color/white_85</item>
+    </style>
+
+    <!-- Subhead -->
+    <style name="text_subhead_black" parent="AppTheme">
+        <item name="android:textSize">@dimen/textSize_subhead</item>
+        <item name="android:textColor">@color/black_85</item>
+    </style>
+
+    <style name="text_subhead_white" parent="AppTheme">
+        <item name="android:textSize">@dimen/textSize_subhead</item>
+        <item name="android:textColor">@color/white_85</item>
+    </style>
+
+    <!-- Body -->
+    <style name="text_body1_black" parent="AppTheme">
+        <item name="android:textSize">@dimen/textSize_body1</item>
+        <item name="android:textColor">@color/black_85</item>
+    </style>
+
+    <style name="text_body2_black" parent="AppTheme">
+        <item name="android:textSize">@dimen/textSize_body2</item>
+        <item name="android:textColor">@color/black_55</item>
+    </style>
+
+    <style name="text_body1_white" parent="AppTheme">
+        <item name="android:textSize">@dimen/textSize_body1</item>
+        <item name="android:textColor">@color/white_85</item>
+    </style>
+
+    <style name="text_body2_white" parent="AppTheme">
+        <item name="android:textSize">@dimen/textSize_body2</item>
+        <item name="android:textColor">@color/white_55</item>
+    </style>
+
+    <!-- Caption -->
+    <style name="text_caption_black" parent="AppTheme">
+        <item name="android:textSize">@dimen/textSize_caption</item>
+        <item name="android:textColor">@color/black_55</item>
+    </style>
+
+    <style name="text_caption_white" parent="AppTheme">
+        <item name="android:textSize">@dimen/textSize_caption</item>
+        <item name="android:textColor">@color/white_55</item>
+    </style>
+
+    <!-- Button -->
+    <style name="text_button_black" parent="AppTheme">
+        <item name="android:textSize">@dimen/textSize_button</item>
+        <item name="android:textColor">@color/black_85</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="text_button_white" parent="AppTheme">
+        <item name="android:textSize">@dimen/textSize_button</item>
+        <item name="android:textColor">@color/white_85</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <!-- Layout -->
+    <style name="appbar" parent="AppTheme">
+        <item name="android:background">@color/lightBlue</item>
+        <item name="android:paddingLeft">@dimen/paper_padding</item>
+        <item name="android:paddingRight">@dimen/paper_padding</item>
+    </style>
+
+    <style name="paper_base_scroll" parent="AppTheme">
+        <item name="android:background">@color/grey_lighten_3</item>
+        <item name="android:padding">@dimen/activity_no_padding</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:scrollbars">vertical</item>
+    </style>
+
+    <style name="paper_base" parent="AppTheme">
+        <item name="android:background">@color/grey_lighten_3</item>
+        <item name="android:padding">@dimen/activity_no_padding</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="paper_card_base" parent="AppTheme">
+        <item name="android:background">@color/grey_lighten_3</item>
+        <item name="android:padding">@dimen/card_padding</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="paper_card_base_white" parent="AppTheme">
+        <item name="android:background">@color/white_85</item>
+        <item name="android:padding">@dimen/card_padding</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="paper_card" parent="AppTheme">
+        <item name="android:background">@color/white_85</item>
+        <item name="android:padding">@dimen/card_padding</item>
+        <item name="android:divider">?android:attr/dividerHorizontal</item>
+        <item name="android:showDividers">middle</item>
+    </style>
+
+    <style name="paper_content" parent="AppTheme">
+        <item name="android:background">@color/white_85</item>
+        <item name="android:paddingLeft">@dimen/paper_padding</item>
+        <item name="android:paddingRight">@dimen/paper_padding</item>
+        <item name="android:divider">?android:attr/dividerHorizontal</item>
+        <item name="android:showDividers">middle</item>
+    </style>
+
+    <style name="toast_content" parent="AppTheme">
+        <item name="android:background">@color/red_lighten_1</item>
+        <item name="android:paddingLeft">@dimen/paper_padding</item>
+        <item name="android:paddingRight">@dimen/paper_padding</item>
+    </style>
+
+    <style name="divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">8dp</item>
+        <item name="android:background">@color/grey_lighten_3</item>
     </style>
 
 </resources>
