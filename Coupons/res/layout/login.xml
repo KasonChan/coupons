@@ -38,6 +38,14 @@
                 android:textColorHighlight="@color/black_85"
                 android:textColorHint="@color/black_85" />
 
+            <TextView
+                android:id="@+id/login_email_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_85"
+                android:padding="@dimen/card_padding"
+                android:textColor="@color/red_accent_1" />
+
             <!-- Password -->
 
             <EditText
@@ -53,6 +61,14 @@
                 android:textColorHighlight="@color/black_85"
                 android:textColorHint="@color/black_85" />
 
+            <TextView
+                android:id="@+id/login_password_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_85"
+                android:padding="@dimen/card_padding"
+                android:textColor="@color/red_accent_1" />
+
             <!-- Login button -->
 
             <Button
@@ -64,9 +80,18 @@
                 android:layout_marginTop="@dimen/border_margin"
                 android:background="@color/blue"
                 android:clickable="true"
+                android:focusable="true"
                 android:gravity="center"
                 android:minHeight="@dimen/verticalSpacing_body"
                 android:text="@string/login" />
+
+            <TextView
+                android:id="@+id/login_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_85"
+                android:padding="@dimen/card_padding"
+                android:textColor="@color/black_85" />
 
             <!-- Signup -->
 

@@ -38,6 +38,14 @@
                 android:textColorHighlight="@color/black_85"
                 android:textColorHint="@color/black_85" />
 
+            <TextView
+                android:id="@+id/signup_fullname_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_85"
+                android:padding="@dimen/card_padding"
+                android:textColor="@color/red_accent_1" />
+
             <!-- Email -->
 
             <EditText
@@ -52,6 +60,14 @@
                 android:textColor="@color/black_85"
                 android:textColorHighlight="@color/black_85"
                 android:textColorHint="@color/black_85" />
+
+            <TextView
+                android:id="@+id/signup_email_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_85"
+                android:padding="@dimen/card_padding"
+                android:textColor="@color/red_accent_1" />
 
             <!-- Password -->
 
@@ -68,18 +84,36 @@
                 android:textColorHighlight="@color/black_85"
                 android:textColorHint="@color/black_85" />
 
-            <!-- Login button -->
+            <TextView
+                android:id="@+id/signup_password_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_85"
+                android:padding="@dimen/card_padding"
+                android:textColor="@color/red_accent_1" />
+
+            <!-- Signup button -->
 
             <Button
                 android:id="@+id/signup_signup"
                 style="@style/text_body1_white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/border_margin"
+                android:layout_marginTop="@dimen/border_margin"
                 android:background="@color/blue"
                 android:clickable="true"
                 android:gravity="center"
                 android:minHeight="@dimen/verticalSpacing_body"
-                android:text="@string/login" />
+                android:text="@string/signup" />
+
+            <TextView
+                android:id="@+id/signup_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_85"
+                android:padding="@dimen/card_padding"
+                android:textColor="@color/black_85" />
         </LinearLayout>
 
         <View

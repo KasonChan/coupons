@@ -16,7 +16,7 @@ public class MainActivity extends Activity {
     setContentView(R.layout.activity_main);
 
     // Start login activity
-    Intent intent = new Intent(this, CouponActivity.class);
+    Intent intent = new Intent(this, LoginActivity.class);
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     
     startActivity(intent);
