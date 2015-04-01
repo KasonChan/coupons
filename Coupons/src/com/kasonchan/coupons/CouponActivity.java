@@ -13,6 +13,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 @SuppressWarnings("deprecation")
@@ -23,6 +24,19 @@ public class CouponActivity extends Activity {
 
     // Display coupon layout
     setContentView(R.layout.coupon);
+
+    TextView couponUsername = (TextView) findViewById(R.id.coupon_username);
+
+    // Get username from login or signup page
+    String username = this.getIntent().getStringExtra("username");
+
+    // If username is not passed from previous intent, hide the username
+    // Otherwise, show username
+    if (username.isEmpty()) {
+      couponUsername.setVisibility(View.GONE);
+    } else {
+      couponUsername.setText("@" + username);
+    }
 
     // Resource
     String resource = "http://api.bluepromocode.com/v2/promotions";

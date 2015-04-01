@@ -279,7 +279,7 @@ public class LoginActivity extends Activity {
           JSONObject user = users.getJSONObject(0);
           String username = user.getString(USERNAME);
 
-          postResult.setText("You are logged in as " + username);
+          postResult.setText(username);
           postResult.setVisibility(View.VISIBLE);
 
           // Create a new intent for activate coupon activity
