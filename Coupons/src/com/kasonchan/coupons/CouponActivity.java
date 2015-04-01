@@ -15,8 +15,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.TextView;
 
-// import android.widget.Toast;
-
 @SuppressWarnings("deprecation")
 public class CouponActivity extends Activity {
   @Override
@@ -78,13 +76,8 @@ public class CouponActivity extends Activity {
     }
 
     protected void onPostExecute(String result) {
-      // Toast for testing result
-      // Toast.makeText(getBaseContext(), result, Toast.LENGTH_SHORT).show();
-
       // After get request is executed, set coupon text to result
       coupon.setText(result);
-
-      // TODO: Parse get request json divide into coupons
     }
   }
 }

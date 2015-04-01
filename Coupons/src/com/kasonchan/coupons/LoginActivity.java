@@ -13,6 +13,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -58,10 +59,6 @@ public class LoginActivity extends Activity {
     /**
      * Login process
      */
-    // Coupon intent
-    final Intent couponIntent = new Intent(this, CouponActivity.class);
-    couponIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
     // Login resource
     final String[] resource = new String[3];
     resource[0] = "http://api.bluepromocode.com/v2/users/login";
@@ -123,6 +120,7 @@ public class LoginActivity extends Activity {
 
       @Override
       public void onClick(View arg0) {
+        postResult.setVisibility(View.GONE);
 
         // Check email
         String emailValue = (email.getText()).toString();
@@ -151,15 +149,16 @@ public class LoginActivity extends Activity {
 
         if ((emailError.getVisibility() == View.GONE)
             && (passwordError.getVisibility() == View.GONE)) {
+
           // Valid formatted email and password
           resource[1] = (email.getText()).toString();
           resource[2] = (password.getText()).toString();
 
-          // Call api
+          // Call api, parse post request
+          // If user is not found, show user not found error message
+          // If invalid user credentials, show invalid user credentials
+          // If valid user credentials, go to coupon activity
           new PostRequest().execute(resource);
-
-          // TODO: Finish up login activity
-          // TODO: Parse post request
         }
       }
     });
@@ -175,6 +174,8 @@ public class LoginActivity extends Activity {
 
       @Override
       public void onClick(View arg0) {
+
+        // Start signup activity
         startActivity(signupIntent);
       }
     });
@@ -249,13 +250,55 @@ public class LoginActivity extends Activity {
     }
 
     protected void onPostExecute(String result) {
-      // Toast for testing result
-      // Toast.makeText(getBaseContext(), result, Toast.LENGTH_SHORT).show();
 
-      // After get request is executed, set result text to postResult and show
-      // it
-      postResult.setText(result);
-      postResult.setVisibility(View.VISIBLE);
+      final String META = "meta";
+      final String ERROR = "error";
+      final String USER = "user";
+      final String USERS = "users";
+      final String USERNAME = "username";
+
+      // Parse result to json object
+      try {
+        JSONObject jsonObj = new JSONObject(result);
+
+        // If error occurs, meta will be returned
+        // Check error is true, then get the user error message
+        if (jsonObj.has(META) == true) {
+          JSONObject meta = jsonObj.getJSONObject(META);
+          if (meta.getString(ERROR) == "true") {
+            String user = meta.getString(USER);
+
+            postResult.setText(user);
+            postResult.setVisibility(View.VISIBLE);
+          }
+        }
+        // If there is not error, a list of user will be returned
+        // Parse the user array and get the first user and parse the username
+        else if (jsonObj.has(USERS) == true) {
+          JSONArray users = jsonObj.getJSONArray(USERS);
+          JSONObject user = users.getJSONObject(0);
+          String username = user.getString(USERNAME);
+
+          postResult.setText("You are logged in as " + username);
+          postResult.setVisibility(View.VISIBLE);
+
+          // Create a new intent for activate coupon activity
+          // Coupon intent
+          final Intent couponIntent = new Intent(LoginActivity.this,
+              CouponActivity.class);
+          couponIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+          // Set username and pass to the next activity
+          couponIntent.putExtra("username", postResult.getText());
+
+          // Start coupon activity
+          LoginActivity.this.startActivity(couponIntent);
+        }
+
+      } catch (JSONException e) {
+        postResult.setText("JSON Parser" + " Error parsing data "
+            + e.toString());
+      }
     }
   }
 }
