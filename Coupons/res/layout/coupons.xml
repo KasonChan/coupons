@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/grey_lighten_2"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey_lighten_3"
+        android:orientation="vertical" >
+
+        <!-- Username -->
+
+        <TextView
+            android:id="@+id/coupons_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/grey_darken_3"
+            android:gravity="center"
+            android:padding="@dimen/card_padding"
+            android:textColor="@color/white_85" />
+    </LinearLayout>
+
+    <!-- Shadow -->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/card_zdepth1_height"
+        android:background="@color/blue_accent_1" />
+
+    <!-- Coupons -->
+
+    <GridView
+        android:id="@+id/coupons_grid"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:columnWidth="90dp"
+        android:gravity="center"
+        android:horizontalSpacing="@dimen/card_padding"
+        android:numColumns="auto_fit"
+        android:padding="@dimen/card_padding"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="@dimen/card_padding" />
+
+</LinearLayout>

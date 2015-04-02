@@ -4,71 +4,56 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_gravity="center_horizontal"
-    android:background="@color/lightBlue_lighten_3"
+    android:background="@color/white_85"
     android:orientation="vertical" >
+
+    <!-- Card -->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lightBlue_lighten_3"
-        android:orientation="vertical" >
+        android:background="@color/white_85"
+        android:orientation="vertical"
+        android:padding="@dimen/card_padding" >
 
-        <!-- Coupon -->
+        <!-- Merchant -->
 
         <TextView
-            android:id="@+id/coupon_username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/grey_darken_3"
-            android:gravity="center"
-            android:padding="@dimen/card_padding"
-            android:textColor="@color/white_85" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/card_zdepth1_height"
-        android:background="@color/blue_accent_1" />
-
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/lightBlue_lighten_3"
-        android:orientation="vertical" >
-
-        <!-- Card -->
-
-        <LinearLayout
+            android:id="@+id/coupon_merchant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white_85"
-            android:minHeight="@dimen/verticalSpacing_body"
-            android:orientation="vertical" >
+            android:gravity="center"
+            android:textColor="@color/black_85"
+            android:textSize="@dimen/textSize_subhead" />
 
-            <LinearLayout
-                style="@style/paper_card_base_white"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
+        <!-- Description -->
 
-                <!-- Coupon -->
+        <TextView
+            android:id="@+id/coupon_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_85"
+            android:gravity="center"
+            android:textColor="@color/black_55" />
 
-                <TextView
-                    android:id="@+id/coupon_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white_85"
-                    android:minHeight="@dimen/verticalSpacing_body"
-                    android:padding="@dimen/card_padding"
-                    android:textColor="@color/black_85" />
-            </LinearLayout>
+        <!-- Follows count -->
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/card_zdepth1_height"
-                android:background="@color/blue_accent_1" />
-        </LinearLayout>
-    </ScrollView>
+        <TextView
+            android:id="@+id/coupon_followsCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_85"
+            android:gravity="center"
+            android:textColor="@color/black_55" />
+    </LinearLayout>
+
+    <!-- Shadow -->
+
+    <View
+        android:id="@+id/coupon_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/card_zdepth1_height"
+        android:background="@color/blue_accent_1" />
 
 </LinearLayout>
