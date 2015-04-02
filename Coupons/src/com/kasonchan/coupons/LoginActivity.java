@@ -156,8 +156,8 @@ public class LoginActivity extends Activity {
 
           // Call api, parse post request
           // If user is not found, show user not found error message
-          // If invalid user credentials, show invalid user credentials
-          // If valid user credentials, go to coupon activity
+          // If user credentials are invalid, show invalid user credentials
+          // If user credentials are valid, go to coupon activity
           new PostRequest().execute(resource);
         }
       }
@@ -256,6 +256,7 @@ public class LoginActivity extends Activity {
       final String USER = "user";
       final String USERS = "users";
       final String USERNAME = "username";
+      final String EMAIL = "email";
 
       // Parse result to json object
       try {
@@ -266,9 +267,9 @@ public class LoginActivity extends Activity {
         if (jsonObj.has(META) == true) {
           JSONObject meta = jsonObj.getJSONObject(META);
           if (meta.getString(ERROR) == "true") {
-            String user = meta.getString(USER);
+            String error = meta.getString(USER);
 
-            postResult.setText(user);
+            postResult.setText(error);
             postResult.setVisibility(View.VISIBLE);
           }
         }
@@ -278,8 +279,9 @@ public class LoginActivity extends Activity {
           JSONArray users = jsonObj.getJSONArray(USERS);
           JSONObject user = users.getJSONObject(0);
           String username = user.getString(USERNAME);
+          String email = user.getString(EMAIL);
 
-          postResult.setText(username);
+          postResult.setText("You are logged in as " + username);
           postResult.setVisibility(View.VISIBLE);
 
           // Create a new intent for activate coupon activity
@@ -288,8 +290,10 @@ public class LoginActivity extends Activity {
               CouponActivity.class);
           couponIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-          // Set username and pass to the next activity
-          couponIntent.putExtra("username", postResult.getText());
+          // Save username, email to intent; and pass to the next
+          // activity
+          couponIntent.putExtra("username", username);
+          couponIntent.putExtra("email", email);
 
           // Start coupon activity
           LoginActivity.this.startActivity(couponIntent);

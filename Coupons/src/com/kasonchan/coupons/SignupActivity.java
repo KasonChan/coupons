@@ -13,10 +13,12 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -161,8 +163,9 @@ public class SignupActivity extends Activity {
 
         // Check password
         String passwordValue = (password.getText()).toString();
-        if (passwordValue.isEmpty()) {
-          passwordError.setText("Invalid input - empty password");
+        if (passwordValue.length() < 8) {
+          passwordError
+              .setText("Invalid input - password must be at least 8 characters long");
           passwordError.setVisibility(View.VISIBLE);
         } else {
           passwordError.setText("");
@@ -177,16 +180,13 @@ public class SignupActivity extends Activity {
           resource[2] = (email.getText()).toString();
           resource[3] = (password.getText()).toString();
 
-          // Call api
+          // Call api, parse post request
+          // If there is an error, print error message
+          // If user signup input are valid, start coupon activity
           new PostRequest().execute(resource);
-
-          // TODO: Finish up signup activity
-          // TODO: Parse post request
         }
       }
     });
-
-    // TODO: Finish up activity
   }
 
   /**
@@ -259,13 +259,75 @@ public class SignupActivity extends Activity {
     }
 
     protected void onPostExecute(String result) {
-      // Toast for testing result
-      // Toast.makeText(getBaseContext(), result, Toast.LENGTH_SHORT).show();
 
-      // After get request is executed, set result text to postResult and show
-      // it
       postResult.setText(result);
       postResult.setVisibility(View.VISIBLE);
+
+      final String META = "meta";
+      final String ERROR = "error";
+      final String ERROR_PASSWORD = "user-password-tooshort";
+      final String USERS = "users";
+      final String USERNAME = "username";
+      final String EMAIL = "email";
+
+      // Parse result to json object
+      try {
+        JSONObject jsonObj = new JSONObject(result);
+
+        // If error occurs, meta will be returned
+        // Check error is true, then get the user error message
+        if (jsonObj.has(META) == true) {
+          JSONObject meta = jsonObj.getJSONObject(META);
+          if (meta.getString(ERROR) == "true") {
+            if (meta.has(ERROR_PASSWORD) == true) {
+              // If the password is less than 8 characters long
+              String error = meta.getString(ERROR_PASSWORD);
+              postResult.setText(error);
+              postResult.setVisibility(View.VISIBLE);
+            } else if (meta.has(EMAIL) == true) {
+              // If email already exists
+              String error = meta.getString(EMAIL);
+              postResult.setText(error);
+              postResult.setVisibility(View.VISIBLE);
+            } else {
+              // Other errors
+              postResult.setText(meta.toString());
+              postResult.setVisibility(View.VISIBLE);
+            }
+
+          }
+        }
+        // If there is not error, a list of user will be returned
+        // Parse the user array and get the first user and parse the username
+        else if (jsonObj.has(USERS) == true) {
+          JSONArray users = jsonObj.getJSONArray(USERS);
+
+          JSONObject user = users.getJSONObject(0);
+          String username = user.getString(USERNAME);
+          String email = user.getString(EMAIL);
+
+          postResult.setText("You are signed up as " + username);
+          postResult.setVisibility(View.VISIBLE);
+
+          // Create a new intent for activate coupon activity
+          // Coupon intent
+          final Intent couponIntent = new Intent(SignupActivity.this,
+              CouponActivity.class);
+          couponIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+          // Save username, email to intent; and pass to the next
+          // activity
+          couponIntent.putExtra("username", username);
+          couponIntent.putExtra("email", email);
+
+          // Start coupon activity
+          SignupActivity.this.startActivity(couponIntent);
+        }
+
+      } catch (JSONException e) {
+        postResult.setText("JSON Parser" + " Error parsing data "
+            + e.toString());
+      }
     }
   }
 }
