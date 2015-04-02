@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -113,39 +114,33 @@ public class CouponActivity extends Activity {
 
       ArrayList<HashMap<String, String>> couponList = new ArrayList<HashMap<String, String>>();
       ;
-      JSONObject merchant;
-      String merchantName;
-      JSONObject savings;
-      Double percentOff;
-      Double amountOff;
-      JSONArray typeArray;
-      String types;
-      String description;
-      int followsCount;
 
       try {
-        JSONObject jsonObj = new JSONObject(result);
+        final JSONObject jsonObj = new JSONObject(result);
 
-        JSONArray coupons = jsonObj.getJSONArray(PROMOTIONS);
+        final JSONArray coupons = jsonObj.getJSONArray(PROMOTIONS);
 
-        for (int i = 0; i < coupons.length() - 1; i++) {
+        for (int i = 0; i < coupons.length(); i++) {
           JSONObject coupon = coupons.getJSONObject(i);
 
-          // Get merchant name
-          merchant = coupon.getJSONObject(MERCHANT);
-          merchantName = merchant.getString(MERCHANT_NAME);
-
-          // Get followsCount
-          followsCount = coupon.getInt(FOLLOWS_COUNT);
-
           // Get coupon description
-          savings = coupon.getJSONObject(SAVINGS);
+          final JSONObject savings = coupon.getJSONObject(SAVINGS);
 
           if (savings.has(PERCENT_OFF) == true) {
-            // If percentOff exists, save it and types
-            percentOff = savings.getDouble(PERCENT_OFF);
+            // Get merchant name
+            final JSONObject merchant = coupon.getJSONObject(MERCHANT);
+            final String merchantName = merchant.getString(MERCHANT_NAME);
 
-            description = percentOff + "%" + " Off";
+            // Get followsCount
+            final int followsCount = coupon.getInt(FOLLOWS_COUNT);
+
+            // If percentOff exists, save it and types
+            final Double percentOff = savings.getDouble(PERCENT_OFF);
+
+            String description = percentOff + "%" + " Off";
+
+            Log.i("percentOff", merchantName + " " + description + " "
+                + followsCount);
 
             // Create temp coupon
             HashMap<String, String> tempCoupon = new HashMap<String, String>();
@@ -159,10 +154,20 @@ public class CouponActivity extends Activity {
             couponList.add(tempCoupon);
 
           } else if (savings.has(AMOUNT_OFF) == true) {
-            // If amountOff exists, save it and types
-            amountOff = savings.getDouble(AMOUNT_OFF);
+            // Get merchant name
+            final JSONObject merchant = coupon.getJSONObject(MERCHANT);
+            final String merchantName = merchant.getString(MERCHANT_NAME);
 
-            description = "$" + amountOff + " Off";
+            // Get followsCount
+            final int followsCount = coupon.getInt(FOLLOWS_COUNT);
+
+            // If amountOff exists, save it and types
+            Double amountOff = savings.getDouble(AMOUNT_OFF);
+
+            final String description = "$" + amountOff + " Off";
+
+            Log.i("amountOff", merchantName + " " + description + " "
+                + followsCount);
 
             // Create temp coupon
             HashMap<String, String> tempCoupon = new HashMap<String, String>();
@@ -175,18 +180,28 @@ public class CouponActivity extends Activity {
             // Save temp coupon to the coupon list
             couponList.add(tempCoupon);
           } else {
+            // Get merchant name
+            final JSONObject merchant = coupon.getJSONObject(MERCHANT);
+            final String merchantName = merchant.getString(MERCHANT_NAME);
+
+            // Get followsCount
+            final int followsCount = coupon.getInt(FOLLOWS_COUNT);
+
             // If the doesn't contain either of both
-            typeArray = savings.getJSONArray(TYPES);
+            final JSONArray typeArray = savings.getJSONArray(TYPES);
 
-            types = "";
-            description = "";
+            String types = "";
 
-            for (int t = 0; t < typeArray.length(); t++) {
-              String type = typeArray.getString(t);
-              types = types + " " + type;
-            }
+            if (typeArray.length() > 0)
+              for (int t = 0; t < typeArray.length(); t++) {
+                String type = typeArray.getString(t);
+                types = types + " " + type;
+              }
 
-            description = types;
+            final String description = types;
+
+            Log.i("others", merchantName + " " + description + " "
+                + followsCount);
 
             // Create temp coupon
             HashMap<String, String> tempCoupon = new HashMap<String, String>();
@@ -200,6 +215,10 @@ public class CouponActivity extends Activity {
             couponList.add(tempCoupon);
           }
         }
+
+        // Log couponList
+        Log.i("printing", String.valueOf(couponList.size()));
+        Log.i("printing", couponList.toString());
 
         // Show coupons
         // Create grid adaptor and set coupon grid
