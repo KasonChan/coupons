@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_gravity="center_horizontal"
+    android:layout_gravity="center"
     android:background="@color/lightBlue_lighten_3"
     android:orientation="vertical"
     android:padding="@dimen/activity_padding" >
@@ -13,8 +13,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:background="@color/white_85"
-        android:minHeight="@dimen/verticalSpacing_body"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -32,7 +32,6 @@
                 android:background="@color/white_85"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
-                android:minHeight="@dimen/verticalSpacing_body"
                 android:padding="@dimen/card_padding"
                 android:textColor="@color/black_85"
                 android:textColorHighlight="@color/black_85"
@@ -55,7 +54,6 @@
                 android:background="@color/white_85"
                 android:hint="@string/password"
                 android:inputType="textPassword"
-                android:minHeight="@dimen/verticalSpacing_body"
                 android:padding="@dimen/card_padding"
                 android:textColor="@color/black_85"
                 android:textColorHighlight="@color/black_85"
@@ -116,4 +114,4 @@
             android:background="@color/blue_accent_1" />
     </LinearLayout>
 
-</ScrollView>
+</LinearLayout>

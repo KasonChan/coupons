@@ -17,10 +17,12 @@
     <!-- Card -->
     <dimen name="card_padding">16dp</dimen>
     <dimen name="card_margin">16dp</dimen>
-    
+    <dimen name="card_minHeight">160dp</dimen>
+    <dimen name="card_minWidth">120dp</dimen>
+
     <!-- Border -->
     <dimen name="border_margin">8dp</dimen>
-    
+
     <!-- Button -->
     <dimen name="button_height">36dp</dimen>
     <dimen name="button_min_width">64dp</dimen>
@@ -57,13 +59,19 @@
     <dimen name="verticalSpacing_actionBar">56.0dp</dimen>
     <dimen name="verticalSpacing_title">48.0dp</dimen>
     <dimen name="verticalSpacing_body">56.0dp</dimen>
-    
+
+    <!-- Title spacing -->
+    <dimen name="title_minHeight">56dp</dimen>
+
+    <!-- Body spacing -->
+    <dimen name="body_minHeight">48dp</dimen>
+
     <!-- Horizontal spacing -->
     <dimen name="horizontalSpacing_icon">56.0dp</dimen>
-    
+
     <!-- Card z depth height -->
-    <dimen name="card_zdepth1_height">3dp</dimen>
-    
+    <dimen name="card_zdepth1_height">2dp</dimen>
+
     <!-- Z depth -->
     <dimen name="zdepth1">5dp</dimen>
     <dimen name="zdepth2">10dp</dimen>
@@ -73,7 +81,9 @@
 
     <!-- Screen -->
     <dimen name="screen_small_width">320dp</dimen>
-    
+    <dimen name="screen_small_height">240dp</dimen>
+
     <!-- Icon -->
     <dimen name="icon_size">40.0dp</dimen>
+
 </resources>

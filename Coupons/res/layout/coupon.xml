@@ -10,9 +10,12 @@
     <!-- Card -->
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/coupon_structure"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@color/white_85"
+        android:minHeight="@dimen/card_minHeight"
+        android:minWidth="@dimen/card_minWidth"
         android:orientation="vertical"
         android:padding="@dimen/card_padding" >
 
@@ -24,6 +27,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white_85"
             android:gravity="center"
+            android:minHeight="@dimen/title_minHeight"
             android:textColor="@color/black_85"
             android:textSize="@dimen/textSize_subhead" />
 
@@ -35,6 +39,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white_85"
             android:gravity="center"
+            android:minHeight="@dimen/body_minHeight"
             android:textColor="@color/black_55" />
 
         <!-- Follows count -->
