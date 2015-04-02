@@ -64,7 +64,7 @@
     <dimen name="title_minHeight">56dp</dimen>
 
     <!-- Body spacing -->
-    <dimen name="body_minHeight">48dp</dimen>
+    <dimen name="body_minHeight">72dp</dimen>
 
     <!-- Horizontal spacing -->
     <dimen name="horizontalSpacing_icon">56.0dp</dimen>
@@ -85,6 +85,9 @@
 
     <!-- Icon -->
     <dimen name="icon_size">24.0dp</dimen>
-    <dimen name="icon_padding">12.0dp</dimen>
+    <dimen name="icon_size_small">12.0dp</dimen>
+    <dimen name="icon_padding">6.0dp</dimen>
+    <dimen name="icon_layout_size">48.0dp</dimen>
+    <dimen name="icon_layout_size_small">36.0dp</dimen>
 
 </resources>

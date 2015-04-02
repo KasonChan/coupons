@@ -50,14 +50,18 @@
             android:layout_gravity="center_vertical"
             android:orientation="horizontal" >
 
-            <Button
-                android:id="@+id/coupon_favorite"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
+            <ImageButton
+                android:layout_width="@dimen/icon_layout_size_small"
+                android:layout_height="@dimen/icon_layout_size_small"
                 android:background="@drawable/favorite"
-                android:height="@dimen/icon_size"
+                android:clickable="true"
+                android:contentDescription="@string/favorite"
+                android:cropToPadding="true"
+                android:height="@dimen/icon_size_small"
                 android:padding="@dimen/icon_padding"
-                android:width="@dimen/icon_size" />
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_favorite_white_36dp"
+                android:width="@dimen/icon_size_small" />
 
             <TextView
                 android:id="@+id/coupon_followsCount"

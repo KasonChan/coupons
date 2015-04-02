@@ -77,13 +77,13 @@ public class GridAdaptor extends BaseAdapter {
       // Set others shows to yellow
       if (descriptionValue.startsWith("$") && descriptionValue.endsWith(" Off")) {
         shadow.setBackgroundColor(mContext.getResources().getColor(
-            R.color.red_accent_1));
+            R.color.red_accent_2));
       } else if (descriptionValue.endsWith(" Off")) {
         shadow.setBackgroundColor(mContext.getResources().getColor(
-            R.color.blue_accent_1));
+            R.color.blue_accent_2));
       } else {
         shadow.setBackgroundColor(mContext.getResources().getColor(
-            R.color.yellow_accent_1));
+            R.color.yellow_accent_2));
       }
 
     } else {
@@ -112,13 +112,13 @@ public class GridAdaptor extends BaseAdapter {
     // Set others shows to yellow
     if (descriptionValue.startsWith("$") && descriptionValue.endsWith(" Off")) {
       shadow.setBackgroundColor(mContext.getResources().getColor(
-          R.color.red_accent_1));
+          R.color.red_accent_2));
     } else if (descriptionValue.endsWith(" Off")) {
       shadow.setBackgroundColor(mContext.getResources().getColor(
-          R.color.blue_accent_1));
+          R.color.blue_accent_2));
     } else {
       shadow.setBackgroundColor(mContext.getResources().getColor(
-          R.color.yellow_accent_1));
+          R.color.yellow_accent_2));
     }
 
     return grid;

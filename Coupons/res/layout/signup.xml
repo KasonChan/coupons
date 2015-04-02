@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_gravity="center"
-    android:background="@color/lightBlue_lighten_3"
+    android:background="@color/grey_lighten_2"
     android:orientation="vertical"
     android:padding="@dimen/activity_padding" >
 
@@ -26,18 +26,35 @@
 
             <!-- Fullname -->
 
-            <EditText
-                android:id="@+id/signup_fullname"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white_85"
-                android:hint="@string/fullname"
-                android:inputType="textEmailAddress"
-                android:minHeight="@dimen/verticalSpacing_body"
-                android:padding="@dimen/card_padding"
-                android:textColor="@color/black_85"
-                android:textColorHighlight="@color/black_85"
-                android:textColorHint="@color/black_85" />
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="@dimen/icon_layout_size"
+                    android:layout_height="@dimen/icon_layout_size"
+                    android:background="@color/blue_accent_1"
+                    android:contentDescription="@string/fullname"
+                    android:height="@dimen/icon_size"
+                    android:padding="@dimen/icon_padding"
+                    android:src="@drawable/ic_person_white_48dp"
+                    android:width="@dimen/icon_size" />
+
+                <EditText
+                    android:id="@+id/signup_fullname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/apptheme_edit_text_holo_light"
+                    android:hint="@string/fullname"
+                    android:inputType="textEmailAddress"
+                    android:minHeight="@dimen/verticalSpacing_body"
+                    android:padding="@dimen/card_padding"
+                    android:textColor="@color/black_85"
+                    android:textColorHighlight="@color/black_85"
+                    android:textColorHint="@color/black_85" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/signup_fullname_error"
@@ -49,18 +66,35 @@
 
             <!-- Email -->
 
-            <EditText
-                android:id="@+id/signup_email"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white_85"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress"
-                android:minHeight="@dimen/verticalSpacing_body"
-                android:padding="@dimen/card_padding"
-                android:textColor="@color/black_85"
-                android:textColorHighlight="@color/black_85"
-                android:textColorHint="@color/black_85" />
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="@dimen/icon_layout_size"
+                    android:layout_height="@dimen/icon_layout_size"
+                    android:background="@color/blue_accent_1"
+                    android:contentDescription="@string/email"
+                    android:height="@dimen/icon_size"
+                    android:padding="@dimen/icon_padding"
+                    android:src="@drawable/ic_email_white_48dp"
+                    android:width="@dimen/icon_size" />
+
+                <EditText
+                    android:id="@+id/signup_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/apptheme_edit_text_holo_light"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"
+                    android:minHeight="@dimen/verticalSpacing_body"
+                    android:padding="@dimen/card_padding"
+                    android:textColor="@color/black_85"
+                    android:textColorHighlight="@color/black_85"
+                    android:textColorHint="@color/black_85" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/signup_email_error"
@@ -72,18 +106,35 @@
 
             <!-- Password -->
 
-            <EditText
-                android:id="@+id/signup_password"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white_85"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                android:minHeight="@dimen/verticalSpacing_body"
-                android:padding="@dimen/card_padding"
-                android:textColor="@color/black_85"
-                android:textColorHighlight="@color/black_85"
-                android:textColorHint="@color/black_85" />
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="@dimen/icon_layout_size"
+                    android:layout_height="@dimen/icon_layout_size"
+                    android:background="@color/blue_accent_1"
+                    android:contentDescription="@string/password"
+                    android:height="@dimen/icon_size"
+                    android:padding="@dimen/icon_padding"
+                    android:src="@drawable/ic_lock_white_48dp"
+                    android:width="@dimen/icon_size" />
+
+                <EditText
+                    android:id="@+id/signup_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/apptheme_edit_text_holo_light"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:minHeight="@dimen/verticalSpacing_body"
+                    android:padding="@dimen/card_padding"
+                    android:textColor="@color/black_85"
+                    android:textColorHighlight="@color/black_85"
+                    android:textColorHint="@color/black_85" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/signup_password_error"
@@ -121,7 +172,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/card_zdepth1_height"
-            android:background="@color/blue_accent_1" />
+            android:background="@color/blue_accent_2" />
     </LinearLayout>
 
 </LinearLayout>

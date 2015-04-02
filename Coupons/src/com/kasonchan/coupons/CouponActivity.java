@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -14,14 +13,15 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 @SuppressWarnings("deprecation")
 public class CouponActivity extends Activity {
@@ -112,7 +112,7 @@ public class CouponActivity extends Activity {
       final String FOLLOWS_COUNT = "followsCount";
       final String DESCRIPTION = "description";
 
-      ArrayList<HashMap<String, String>> couponList = new ArrayList<HashMap<String, String>>();
+      final ArrayList<HashMap<String, String>> couponList = new ArrayList<HashMap<String, String>>();
       ;
 
       try {
@@ -195,7 +195,10 @@ public class CouponActivity extends Activity {
             if (typeArray.length() > 0)
               for (int t = 0; t < typeArray.length(); t++) {
                 String type = typeArray.getString(t);
-                types = types + " " + type;
+                if (t == 0)
+                  types = type;
+                else
+                  types = types + "\n" + type;
               }
 
             final String description = types;
