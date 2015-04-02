@@ -84,6 +84,7 @@
     <dimen name="screen_small_height">240dp</dimen>
 
     <!-- Icon -->
-    <dimen name="icon_size">40.0dp</dimen>
+    <dimen name="icon_size">24.0dp</dimen>
+    <dimen name="icon_padding">12.0dp</dimen>
 
 </resources>

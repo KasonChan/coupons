@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white_85"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:minHeight="@dimen/title_minHeight"
             android:textColor="@color/black_85"
             android:textSize="@dimen/textSize_subhead" />
@@ -38,19 +38,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white_85"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:minHeight="@dimen/body_minHeight"
             android:textColor="@color/black_55" />
 
         <!-- Follows count -->
 
-        <TextView
-            android:id="@+id/coupon_followsCount"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white_85"
-            android:gravity="center"
-            android:textColor="@color/black_55" />
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/coupon_favorite"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:background="@drawable/favorite"
+                android:height="@dimen/icon_size"
+                android:padding="@dimen/icon_padding"
+                android:width="@dimen/icon_size" />
+
+            <TextView
+                android:id="@+id/coupon_followsCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white_85"
+                android:gravity="center"
+                android:padding="@dimen/icon_padding"
+                android:textColor="@color/black_55" />
+        </LinearLayout>
     </LinearLayout>
 
     <!-- Shadow -->
