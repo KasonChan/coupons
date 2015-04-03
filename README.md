@@ -40,6 +40,7 @@ Use the [design](design) folder for guidance, we would like you to focus on how 
 This application is written Java with Eclipse, Android SKD.
 
 Currently working requirements:
+
 1. Coupons
 2. Login
 3. Signup
