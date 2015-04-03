@@ -7,11 +7,14 @@ import java.io.UnsupportedEncodingException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
+import org.apache.http.client.CookieStore;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.protocol.ClientContext;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
+import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +34,12 @@ import android.widget.TextView;
 
 @SuppressWarnings("deprecation")
 public class SignupActivity extends Activity {
+
+  // Set up client, context and cookie store for the activity
+  private DefaultHttpClient client      = new DefaultHttpClient();
+  private BasicHttpContext  context     = new BasicHttpContext();
+  private CookieStore       cookieStore = new BasicCookieStore();
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -47,6 +56,9 @@ public class SignupActivity extends Activity {
     final TextView passwordError = (TextView) findViewById(R.id.signup_password_error);
     final TextView postResult = (TextView) findViewById(R.id.signup_result);
     final Button signup = (Button) findViewById(R.id.signup_signup);
+
+    // Set up cookie store
+    context.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
 
     // Login resource
     final String[] resource = new String[4];
@@ -198,12 +210,12 @@ public class SignupActivity extends Activity {
   private class PostRequest extends AsyncTask<String, Void, String> {
 
     final TextView postResult = (TextView) findViewById(R.id.signup_result);
+    private String password   = "";
 
     @Override
     protected String doInBackground(String... args) {
 
-      // Create new client, build http post request with argument url
-      HttpClient client = new DefaultHttpClient();
+      // Build http post request with argument url
       HttpPost request = new HttpPost(args[0]);
       request.setHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8");
 
@@ -234,7 +246,7 @@ public class SignupActivity extends Activity {
 
       try {
         // Execute post request
-        HttpResponse response = client.execute(request);
+        HttpResponse response = client.execute(request, context);
 
         // Append request to result string
         BufferedReader rd = new BufferedReader(new InputStreamReader(response
@@ -319,6 +331,8 @@ public class SignupActivity extends Activity {
           // activity
           couponIntent.putExtra("username", username);
           couponIntent.putExtra("email", email);
+          couponIntent.putExtra("password", password);
+          couponIntent.putExtra("result", result);
 
           // Start coupon activity
           SignupActivity.this.startActivity(couponIntent);
