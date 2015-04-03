@@ -1,8 +1,8 @@
 Coupons
 =======
 
-An android application covers some of the basic use cases for the coupon 
-product, BluePromoCode, and makes use of our RESTful API endpoints.
+An Android application covers some of the basic use cases for the coupon 
+product, BluePromoCode, and makes use of their RESTful API endpoints.
 
 ### Requirements ###
 
@@ -34,3 +34,19 @@ Use the [design](design) folder for guidance, we would like you to focus on how 
   - Show personalized coupons from our REST API (requires authentication)
   - Resource: `http://api.bluepromocode.com/v2/users/self/promotions/suggestions`
   - Method: `GET`
+
+### Developing ###
+
+This application is written Java with Eclipse, Android SKD.
+
+Currently working requirements:
+1. Coupons
+2. Login
+3. Signup
+
+### Running the code ###
+
+1. Download this repository
+2. Import the inner `Coupons` directory to Eclipse.
+3. Right click the imported project, Choose `Run As`, then `1 Android Application`
+4. Select Android Device
