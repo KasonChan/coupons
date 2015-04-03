@@ -298,11 +298,13 @@ public class LoginActivity extends Activity {
               CouponActivity.class);
           couponIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-          // Save username, email and password to intent; and pass to the next
+          // Save username, email, password and result to intent; and pass to
+          // the next
           // activity
           couponIntent.putExtra("username", username);
           couponIntent.putExtra("email", email);
           couponIntent.putExtra("password", password);
+          couponIntent.putExtra("result", result);
 
           // Start coupon activity
           LoginActivity.this.startActivity(couponIntent);

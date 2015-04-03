@@ -2,22 +2,46 @@ package com.kasonchan.coupons;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.http.Header;
+import org.apache.http.HttpException;
+import org.apache.http.HttpHost;
+import org.apache.http.HttpRequest;
+import org.apache.http.HttpRequestInterceptor;
 import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.AuthState;
+import org.apache.http.auth.AuthenticationException;
+import org.apache.http.auth.Credentials;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.protocol.ClientContext;
+import org.apache.http.impl.auth.BasicScheme;
+import org.apache.http.impl.client.AbstractHttpClient;
+import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.ExecutionContext;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.protocol.HttpContext;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
@@ -33,6 +57,7 @@ public class CouponActivity extends Activity {
     // Display coupon layout
     setContentView(R.layout.coupons);
 
+    // Find textview
     TextView couponUsername = (TextView) findViewById(R.id.coupons_username);
 
     // Get username from login or signup page
@@ -50,15 +75,19 @@ public class CouponActivity extends Activity {
 
     }
 
-    // // Resource
+    // Resource
     String resource = "http://api.bluepromocode.com/v2/promotions";
 
     // TODO: Finish up get authentication
     // Login resource for authentication
-    final String[] resourcePersonalized = new String[3];
+    final String[] resourcePersonalized = new String[4];
     resourcePersonalized[0] = "http://api.bluepromocode.com/v2/users/self/promotions/suggestions";
-    resourcePersonalized[1] = this.getIntent().getStringExtra("username").toString();
-    resourcePersonalized[2] = this.getIntent().getStringExtra("password").toString();
+    resourcePersonalized[1] = this.getIntent().getStringExtra("email")
+        .toString();
+    resourcePersonalized[2] = this.getIntent().getStringExtra("password")
+        .toString();
+    resourcePersonalized[3] = this.getIntent().getStringExtra("result")
+        .toString();
 
     // Get request from the resource
     new GetRequest().execute(resource);
@@ -256,6 +285,10 @@ public class CouponActivity extends Activity {
     @Override
     protected String doInBackground(String... args) {
 
+      // Log args
+      Log.i("doInBackground", args[0] + " " + args[1] + " " + args[2] + " "
+          + args[3]);
+
       // Create new client, build http get request with argument url
       HttpClient client = new DefaultHttpClient();
       HttpGet request = new HttpGet(args[0]);
@@ -269,7 +302,10 @@ public class CouponActivity extends Activity {
         // Execute request
         response = client.execute(request);
 
-        Log.i("RESPONSE", response.toString());
+        int statusCode = response.getStatusLine().getStatusCode();
+        Log.i("statusCode", String.valueOf(statusCode));
+
+        Log.i("response", response.toString());
 
         // Append request to result string
         BufferedReader rd = new BufferedReader(new InputStreamReader(response
@@ -282,6 +318,8 @@ public class CouponActivity extends Activity {
         }
 
         return result.toString();
+
+        // return "";
       } catch (ClientProtocolException e) {
         // Catch client protocol exception
         e.printStackTrace();
@@ -294,6 +332,8 @@ public class CouponActivity extends Activity {
     }
 
     protected void onPostExecute(String result) {
+
+      Log.i("response post execute", result);
 
       final String PROMOTIONS = "promotions";
       final String SAVINGS = "savings";
