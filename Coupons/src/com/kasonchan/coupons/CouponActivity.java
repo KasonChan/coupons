@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.http.HttpResponse;
-
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
+import org.apache.http.client.CookieStore;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.protocol.ClientContext;
+import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +29,11 @@ import android.widget.TextView;
 @SuppressWarnings("deprecation")
 public class CouponActivity extends Activity {
 
+  // Set up client, context and cookie store for the activity
+  private DefaultHttpClient client      = new DefaultHttpClient();
+  private BasicHttpContext  context     = new BasicHttpContext();
+  private CookieStore       cookieStore = new BasicCookieStore();
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -36,6 +43,9 @@ public class CouponActivity extends Activity {
 
     // Find textview
     TextView couponUsername = (TextView) findViewById(R.id.coupons_username);
+
+    // Set up cookie store
+    context.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
 
     // Get username from login or signup page
     try {
@@ -85,13 +95,12 @@ public class CouponActivity extends Activity {
     protected String doInBackground(String... args) {
 
       // Create new client, build http get request with argument url
-      HttpClient client = new DefaultHttpClient();
       HttpGet request = new HttpGet(args[0]);
       HttpResponse response;
 
       try {
         // Execute request
-        response = client.execute(request);
+        response = client.execute(request, context);
 
         // Append request to result string
         BufferedReader rd = new BufferedReader(new InputStreamReader(response
@@ -267,7 +276,6 @@ public class CouponActivity extends Activity {
           + args[3]);
 
       // Create new client, build http get request with argument url
-      HttpClient client = new DefaultHttpClient();
       HttpGet request = new HttpGet(args[0]);
 
       // Create credentials and then add to request
@@ -277,7 +285,7 @@ public class CouponActivity extends Activity {
 
       try {
         // Execute request
-        response = client.execute(request);
+        response = client.execute(request, context);
 
         int statusCode = response.getStatusLine().getStatusCode();
         Log.i("statusCode", String.valueOf(statusCode));

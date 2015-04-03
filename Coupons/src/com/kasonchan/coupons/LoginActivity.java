@@ -7,11 +7,14 @@ import java.io.UnsupportedEncodingException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
+import org.apache.http.client.CookieStore;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.protocol.ClientContext;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
+import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +35,16 @@ import android.widget.Button;
 
 @SuppressWarnings("deprecation")
 public class LoginActivity extends Activity {
+
+  // Set up client, context and cookie store for the activity
+  private DefaultHttpClient client      = new DefaultHttpClient();
+  private BasicHttpContext  context     = new BasicHttpContext();
+  private CookieStore       cookieStore = new BasicCookieStore();
+
+  public CookieStore getCookieStore() {
+    return cookieStore;
+  }
+
   @Override
   public void onBackPressed() {
     // Override back button pressed to go back to home screen
@@ -56,6 +69,9 @@ public class LoginActivity extends Activity {
     final TextView postResult = (TextView) findViewById(R.id.login_result);
     final Button login = (Button) findViewById(R.id.login_login);
     final Button signup = (Button) findViewById(R.id.login_signup);
+
+    // Set up cookie store
+    context.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
 
     /**
      * Login process
@@ -200,7 +216,7 @@ public class LoginActivity extends Activity {
       password = args[2];
 
       // Create new client, build http post request with argument url
-      HttpClient client = new DefaultHttpClient();
+
       HttpPost request = new HttpPost(args[0]);
       request.setHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8");
 
@@ -230,7 +246,7 @@ public class LoginActivity extends Activity {
 
       try {
         // Execute post request
-        HttpResponse response = client.execute(request);
+        HttpResponse response = client.execute(request, context);
 
         // Append request to result string
         BufferedReader rd = new BufferedReader(new InputStreamReader(response
