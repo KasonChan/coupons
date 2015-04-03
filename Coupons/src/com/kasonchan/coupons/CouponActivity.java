@@ -76,6 +76,9 @@ public class CouponActivity extends Activity {
     resourcePersonalized[3] = this.getIntent().getStringExtra("result")
         .toString();
 
+    Log.i("intent", resourcePersonalized[0] + "\n" + resourcePersonalized[1]
+        + "\n" + resourcePersonalized[2] + "\n" + resourcePersonalized[3]);
+
     // Get request from the resource
     new GetRequest().execute(resource);
 

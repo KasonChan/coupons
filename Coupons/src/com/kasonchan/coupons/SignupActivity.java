@@ -215,6 +215,9 @@ public class SignupActivity extends Activity {
     @Override
     protected String doInBackground(String... args) {
 
+      // Save password for passing to next intent for next activity
+      password = args[2];
+
       // Build http post request with argument url
       HttpPost request = new HttpPost(args[0]);
       request.setHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8");
