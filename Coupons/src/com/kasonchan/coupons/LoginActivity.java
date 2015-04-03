@@ -23,6 +23,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -190,9 +191,13 @@ public class LoginActivity extends Activity {
   private class PostRequest extends AsyncTask<String, Void, String> {
 
     final TextView postResult = (TextView) findViewById(R.id.login_result);
+    private String password   = "";
 
     @Override
     protected String doInBackground(String... args) {
+
+      // Save password for passing to next intent for next activity
+      password = args[2];
 
       // Create new client, build http post request with argument url
       HttpClient client = new DefaultHttpClient();
@@ -258,6 +263,9 @@ public class LoginActivity extends Activity {
       final String USERNAME = "username";
       final String EMAIL = "email";
 
+      // Log result
+      Log.i("login", result);
+
       // Parse result to json object
       try {
         JSONObject jsonObj = new JSONObject(result);
@@ -290,10 +298,11 @@ public class LoginActivity extends Activity {
               CouponActivity.class);
           couponIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-          // Save username, email to intent; and pass to the next
+          // Save username, email and password to intent; and pass to the next
           // activity
           couponIntent.putExtra("username", username);
           couponIntent.putExtra("email", email);
+          couponIntent.putExtra("password", password);
 
           // Start coupon activity
           LoginActivity.this.startActivity(couponIntent);
