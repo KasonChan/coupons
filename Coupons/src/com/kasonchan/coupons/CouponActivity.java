@@ -76,8 +76,9 @@ public class CouponActivity extends Activity {
     resourcePersonalized[3] = this.getIntent().getStringExtra("result")
         .toString();
 
-    Log.i("intent", resourcePersonalized[0] + "\n" + resourcePersonalized[1]
-        + "\n" + resourcePersonalized[2] + "\n" + resourcePersonalized[3]);
+    Log.i("CouponActivity", resourcePersonalized[0] + "\n"
+        + resourcePersonalized[1] + "\n" + resourcePersonalized[2] + "\n"
+        + resourcePersonalized[3]);
 
     // Get request from the resource
     new GetRequest().execute(resource);
@@ -166,8 +167,8 @@ public class CouponActivity extends Activity {
 
             String description = percentOff + "%" + " Off";
 
-            Log.i("percentOff", merchantName + " " + description + " "
-                + followsCount);
+            Log.i("onPostExecute - percentOff", merchantName + " "
+                + description + " " + followsCount);
 
             // Create temp coupon
             HashMap<String, String> tempCoupon = new HashMap<String, String>();
@@ -193,8 +194,8 @@ public class CouponActivity extends Activity {
 
             final String description = "$" + amountOff + " Off";
 
-            Log.i("amountOff", merchantName + " " + description + " "
-                + followsCount);
+            Log.i("onPostExecute - amountOff", merchantName + " " + description
+                + " " + followsCount);
 
             // Create temp coupon
             HashMap<String, String> tempCoupon = new HashMap<String, String>();
@@ -230,8 +231,8 @@ public class CouponActivity extends Activity {
 
             final String description = types;
 
-            Log.i("others", merchantName + " " + description + " "
-                + followsCount);
+            Log.i("onPostExecute - others", merchantName + " " + description
+                + " " + followsCount);
 
             // Create temp coupon
             HashMap<String, String> tempCoupon = new HashMap<String, String>();
@@ -247,8 +248,8 @@ public class CouponActivity extends Activity {
         }
 
         // Log couponList
-        Log.i("printing", String.valueOf(couponList.size()));
-        Log.i("printing", couponList.toString());
+        Log.i("onPostExecute - couponList", String.valueOf(couponList.size()));
+        Log.i("onPostExecute - couponList", couponList.toString());
 
         // Show coupons
         // Create grid adaptor and set coupon grid
@@ -275,7 +276,7 @@ public class CouponActivity extends Activity {
     protected String doInBackground(String... args) {
 
       // Log args
-      Log.i("doInBackground", args[0] + " " + args[1] + " " + args[2] + " "
+      Log.i("doInBackground", args[0] + "\n" + args[1] + "\n" + args[2] + "\n"
           + args[3]);
 
       // Create new client, build http get request with argument url
@@ -291,9 +292,9 @@ public class CouponActivity extends Activity {
         response = client.execute(request, context);
 
         int statusCode = response.getStatusLine().getStatusCode();
-        Log.i("statusCode", String.valueOf(statusCode));
+        Log.i("doInBackground - statusCode", String.valueOf(statusCode));
 
-        Log.i("response", response.toString());
+        Log.i("doInBackground - response", response.toString());
 
         // Append request to result string
         BufferedReader rd = new BufferedReader(new InputStreamReader(response
@@ -321,7 +322,7 @@ public class CouponActivity extends Activity {
 
     protected void onPostExecute(String result) {
 
-      Log.i("response post execute", result);
+      Log.i("onPostExecute - result", result);
 
       final String PROMOTIONS = "promotions";
       final String SAVINGS = "savings";
@@ -360,8 +361,8 @@ public class CouponActivity extends Activity {
 
             String description = percentOff + "%" + " Off";
 
-            Log.i("percentOff", merchantName + " " + description + " "
-                + followsCount);
+            Log.i("onPostExecute - percentOff", merchantName + " "
+                + description + " " + followsCount);
 
             // Create temp coupon
             HashMap<String, String> tempCoupon = new HashMap<String, String>();
@@ -387,8 +388,8 @@ public class CouponActivity extends Activity {
 
             final String description = "$" + amountOff + " Off";
 
-            Log.i("amountOff", merchantName + " " + description + " "
-                + followsCount);
+            Log.i("onPostExecute - amountOff", merchantName + " " + description
+                + " " + followsCount);
 
             // Create temp coupon
             HashMap<String, String> tempCoupon = new HashMap<String, String>();
@@ -424,8 +425,8 @@ public class CouponActivity extends Activity {
 
             final String description = types;
 
-            Log.i("others", merchantName + " " + description + " "
-                + followsCount);
+            Log.i("onPostExecute - others", merchantName + " " + description
+                + " " + followsCount);
 
             // Create temp coupon
             HashMap<String, String> tempCoupon = new HashMap<String, String>();
@@ -441,8 +442,8 @@ public class CouponActivity extends Activity {
         }
 
         // Log couponList
-        Log.i("printing", String.valueOf(couponList.size()));
-        Log.i("printing", couponList.toString());
+        Log.i("onPostExecute - couponList", String.valueOf(couponList.size()));
+        Log.i("onPostExecute - couponList", couponList.toString());
 
         // Show coupons
         // Create grid adaptor and set coupon grid

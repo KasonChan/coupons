@@ -26,6 +26,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -216,7 +217,7 @@ public class SignupActivity extends Activity {
     protected String doInBackground(String... args) {
 
       // Save password for passing to next intent for next activity
-      password = args[2];
+      password = args[3];
 
       // Build http post request with argument url
       HttpPost request = new HttpPost(args[0]);
@@ -309,7 +310,6 @@ public class SignupActivity extends Activity {
               postResult.setText(meta.toString());
               postResult.setVisibility(View.VISIBLE);
             }
-
           }
         }
         // If there is not error, a list of user will be returned
@@ -336,6 +336,10 @@ public class SignupActivity extends Activity {
           couponIntent.putExtra("email", email);
           couponIntent.putExtra("password", password);
           couponIntent.putExtra("result", result);
+
+          // Log coupon intent extra
+          Log.i("onPostExecute", username + "\n" + email + "\n" + password
+              + "\n" + result);
 
           // Start coupon activity
           SignupActivity.this.startActivity(couponIntent);

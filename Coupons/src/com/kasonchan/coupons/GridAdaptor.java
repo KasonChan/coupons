@@ -21,8 +21,8 @@ public class GridAdaptor extends BaseAdapter {
     this.coupons = coupons;
 
     // Log coupon
-    Log.i("constructor", String.valueOf(coupons.size()));
-    Log.i("constructor", coupons.toString());
+    Log.i("GridAdaptor - coupons", String.valueOf(coupons.size()));
+    Log.i("GridAdaptor - coupons", coupons.toString());
   }
 
   @Override
@@ -70,7 +70,8 @@ public class GridAdaptor extends BaseAdapter {
       followsCount.setText(coupons.get(position).get(FOLLOWS_COUNT));
 
       // Log getView
-      Log.i("getView", position + ": " + coupons.get(position).toString());
+      Log.i("getView - coupon", position + ": "
+          + coupons.get(position).toString());
 
       // Set amount off shadow to red
       // Set percent off shadow to blue
@@ -105,7 +106,8 @@ public class GridAdaptor extends BaseAdapter {
     followsCount.setText(coupons.get(position).get(FOLLOWS_COUNT));
 
     // Log getView
-    Log.i("getView", position + ": " + coupons.get(position).toString());
+    Log.i("getView - coupon", position + ": "
+        + coupons.get(position).toString());
 
     // Set amount off shadow to red
     // Set percent off shadow to blue

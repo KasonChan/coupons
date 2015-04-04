@@ -280,7 +280,7 @@ public class LoginActivity extends Activity {
       final String EMAIL = "email";
 
       // Log result
-      Log.i("login", result);
+      Log.i("onPostExecute - result", result);
 
       // Parse result to json object
       try {
