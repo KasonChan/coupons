@@ -210,8 +210,7 @@ public class SignupActivity extends Activity {
    */
   private class PostRequest extends AsyncTask<String, Void, String> {
 
-    final TextView postResult = (TextView) findViewById(R.id.signup_result);
-    private String password   = "";
+    private String password = "";
 
     @Override
     protected String doInBackground(String... args) {
@@ -274,21 +273,46 @@ public class SignupActivity extends Activity {
       }
     }
 
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(String response) {
 
-      postResult.setText(result);
-      postResult.setVisibility(View.VISIBLE);
+      // Log result
+      Log.i("PostRequest-onPostExecute-response", response);
 
-      final String META = "meta";
-      final String ERROR = "error";
-      final String ERROR_PASSWORD = "user-password-tooshort";
-      final String USERS = "users";
-      final String USERNAME = "username";
-      final String EMAIL = "email";
+      final String[] resource = new String[2];
+      resource[0] = response;
+      resource[1] = password;
+
+      new ParseSignupResponse().execute(resource);
+    }
+  }
+
+  private class ParseSignupResponse extends AsyncTask<String, Void, String> {
+
+    final String   META           = "meta";
+    final String   ERROR          = "error";
+    final String   ERROR_PASSWORD = "user-password-tooshort";
+    final String   USERS          = "users";
+    final String   USERNAME       = "username";
+    final String   EMAIL          = "email";
+
+    final TextView postResult     = (TextView) findViewById(R.id.signup_result);
+    private String username       = "";
+    private String password       = "";
+    private String email          = "";
+    private String response       = "";
+
+    @Override
+    protected String doInBackground(String... args) {
+
+      // Save password for passing to next intent for next activity
+      response = args[0];
+      password = args[1];
+
+      String resultTag = "No error";
 
       // Parse result to json object
       try {
-        JSONObject jsonObj = new JSONObject(result);
+        JSONObject jsonObj = new JSONObject(response);
 
         // If error occurs, meta will be returned
         // Check error is true, then get the user error message
@@ -298,17 +322,17 @@ public class SignupActivity extends Activity {
             if (meta.has(ERROR_PASSWORD) == true) {
               // If the password is less than 8 characters long
               String error = meta.getString(ERROR_PASSWORD);
-              postResult.setText(error);
-              postResult.setVisibility(View.VISIBLE);
+              resultTag = error;
+              response = error;
             } else if (meta.has(EMAIL) == true) {
               // If email already exists
               String error = meta.getString(EMAIL);
-              postResult.setText(error);
-              postResult.setVisibility(View.VISIBLE);
+              resultTag = error;
+              response = error;
             } else {
               // Other errors
-              postResult.setText(meta.toString());
-              postResult.setVisibility(View.VISIBLE);
+              resultTag = meta.toString();
+              response = meta.toString();
             }
           }
         }
@@ -318,36 +342,56 @@ public class SignupActivity extends Activity {
           JSONArray users = jsonObj.getJSONArray(USERS);
 
           JSONObject user = users.getJSONObject(0);
-          String username = user.getString(USERNAME);
-          String email = user.getString(EMAIL);
+          username = user.getString(USERNAME);
+          email = user.getString(EMAIL);
 
-          postResult.setText("You are signed up as " + username);
-          postResult.setVisibility(View.VISIBLE);
-
-          // Create a new intent for activate coupon activity
-          // Coupon intent
-          final Intent couponIntent = new Intent(SignupActivity.this,
-              CouponActivity.class);
-          couponIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-          // Save username, email to intent; and pass to the next
-          // activity
-          couponIntent.putExtra("username", username);
-          couponIntent.putExtra("email", email);
-          couponIntent.putExtra("password", password);
-          couponIntent.putExtra("result", result);
-
-          // Log coupon intent extra
-          Log.i("onPostExecute", username + "\n" + email + "\n" + password
-              + "\n" + result);
-
-          // Start coupon activity
-          SignupActivity.this.startActivity(couponIntent);
+          resultTag = "No error";
         }
 
       } catch (JSONException e) {
-        postResult.setText("JSON Parser" + " Error parsing data "
-            + e.toString());
+        resultTag = "JSON Parser" + " Error parsing data " + e.toString();
+        response = "JSON Parser" + " Error parsing data " + e.toString();
+      }
+
+      return resultTag;
+    }
+
+    protected void onPostExecute(String resultTag) {
+
+      // Log result
+      Log.i("ParseLoginResponse-onPostExecute-resultTag", resultTag);
+
+      if (resultTag.equals("No error")) {
+
+        // Log username, email, password and response
+        Log.i("ParseLoginResponse-onPostExecute-username", username);
+        Log.i("ParseLoginResponse-onPostExecute-email", email);
+        Log.i("ParseLoginResponse-onPostExecute-password", password);
+        Log.i("ParseLoginResponse-onPostExecute-response", response);
+
+        postResult.setText("You are signed up as " + username);
+        postResult.setVisibility(View.VISIBLE);
+
+        // Create a new intent for activate coupon activity
+        // Coupon intent
+        final Intent couponIntent = new Intent(SignupActivity.this,
+            CouponActivity.class);
+        couponIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        // Save username, email to intent; and pass to the next
+        // activity
+        couponIntent.putExtra("username", username);
+        couponIntent.putExtra("email", email);
+        couponIntent.putExtra("password", password);
+
+        // Log coupon intent extra
+        Log.i("onPostExecute", username + "\n" + email + "\n" + password);
+
+        // Start coupon activity
+        SignupActivity.this.startActivity(couponIntent);
+      } else {
+        postResult.setText(resultTag);
+        postResult.setVisibility(View.VISIBLE);
       }
     }
   }

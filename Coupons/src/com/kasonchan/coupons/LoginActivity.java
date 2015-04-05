@@ -295,7 +295,7 @@ public class LoginActivity extends Activity {
     protected String doInBackground(String... args) {
 
       // Save password for passing to next intent for next activity
-      String response = args[0];
+      response = args[0];
       password = args[1];
 
       String resultTag = "";
