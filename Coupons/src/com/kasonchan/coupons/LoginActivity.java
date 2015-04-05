@@ -41,10 +41,6 @@ public class LoginActivity extends Activity {
   private BasicHttpContext  context     = new BasicHttpContext();
   private CookieStore       cookieStore = new BasicCookieStore();
 
-  public CookieStore getCookieStore() {
-    return cookieStore;
-  }
-
   @Override
   public void onBackPressed() {
     // Override back button pressed to go back to home screen
@@ -206,17 +202,14 @@ public class LoginActivity extends Activity {
    */
   private class PostRequest extends AsyncTask<String, Void, String> {
 
-    final TextView postResult = (TextView) findViewById(R.id.login_result);
-    private String password   = "";
+    private String password = "";
 
     @Override
     protected String doInBackground(String... args) {
 
-      // Save password for passing to next intent for next activity
       password = args[2];
 
-      // Create new client, build http post request with argument url
-
+      // Build http post request with argument url
       HttpPost request = new HttpPost(args[0]);
       request.setHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8");
 
@@ -270,21 +263,46 @@ public class LoginActivity extends Activity {
       }
     }
 
-    protected void onPostExecute(String result) {
-
-      final String META = "meta";
-      final String ERROR = "error";
-      final String USER = "user";
-      final String USERS = "users";
-      final String USERNAME = "username";
-      final String EMAIL = "email";
+    protected void onPostExecute(String response) {
 
       // Log result
-      Log.i("onPostExecute - result", result);
+      Log.i("PostRequest-onPostExecute-response", response);
+
+      final String[] resource = new String[2];
+      resource[0] = response;
+      resource[1] = password;
+
+      new ParseLoginResponse().execute(resource);
+    }
+  }
+
+  private class ParseLoginResponse extends AsyncTask<String, Void, String> {
+
+    final String   META       = "meta";
+    final String   ERROR      = "error";
+    final String   USER       = "user";
+    final String   USERS      = "users";
+    final String   USERNAME   = "username";
+    final String   EMAIL      = "email";
+
+    final TextView postResult = (TextView) findViewById(R.id.login_result);
+    private String username   = "";
+    private String password   = "";
+    private String email      = "";
+    private String response   = "";
+
+    @Override
+    protected String doInBackground(String... args) {
+
+      // Save password for passing to next intent for next activity
+      String response = args[0];
+      password = args[1];
+
+      String resultTag = "";
 
       // Parse result to json object
       try {
-        JSONObject jsonObj = new JSONObject(result);
+        JSONObject jsonObj = new JSONObject(response);
 
         // If error occurs, meta will be returned
         // Check error is true, then get the user error message
@@ -292,9 +310,8 @@ public class LoginActivity extends Activity {
           JSONObject meta = jsonObj.getJSONObject(META);
           if (meta.getString(ERROR) == "true") {
             String error = meta.getString(USER);
-
-            postResult.setText(error);
-            postResult.setVisibility(View.VISIBLE);
+            resultTag = error;
+            response = error;
           }
         }
         // If there is not error, a list of user will be returned
@@ -302,33 +319,55 @@ public class LoginActivity extends Activity {
         else if (jsonObj.has(USERS) == true) {
           JSONArray users = jsonObj.getJSONArray(USERS);
           JSONObject user = users.getJSONObject(0);
-          String username = user.getString(USERNAME);
-          String email = user.getString(EMAIL);
-
-          postResult.setText("You are logged in as " + username);
-          postResult.setVisibility(View.VISIBLE);
-
-          // Create a new intent for activate coupon activity
-          // Coupon intent
-          final Intent couponIntent = new Intent(LoginActivity.this,
-              CouponActivity.class);
-          couponIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-          // Save username, email, password and result to intent; and pass to
-          // the next
-          // activity
-          couponIntent.putExtra("username", username);
-          couponIntent.putExtra("email", email);
-          couponIntent.putExtra("password", password);
-          couponIntent.putExtra("result", result);
-
-          // Start coupon activity
-          LoginActivity.this.startActivity(couponIntent);
+          username = user.getString(USERNAME);
+          email = user.getString(EMAIL);
+          resultTag = "No error";
         }
-
       } catch (JSONException e) {
-        postResult.setText("JSON Parser" + " Error parsing data "
-            + e.toString());
+        resultTag = "JSON Parser" + " Error parsing data " + e.toString();
+        response = "JSON Parser" + " Error parsing data " + e.toString();
+      }
+
+      return resultTag;
+    }
+
+    protected void onPostExecute(String resultTag) {
+
+      // Log result
+      Log.i("ParseLoginResponse-onPostExecute-resultTag", resultTag);
+
+      // If there is no error in json parsing, the resultTag will equals to
+      // "No error"
+      // Otherwise, error or exception occured
+      if (resultTag.equals("No error")) {
+
+        // Log username, email, password and response
+        Log.i("ParseLoginResponse-onPostExecute-username", username);
+        Log.i("ParseLoginResponse-onPostExecute-email", email);
+        Log.i("ParseLoginResponse-onPostExecute-password", password);
+        Log.i("ParseLoginResponse-onPostExecute-response", response);
+
+        postResult.setText("You are logged in as " + username);
+        postResult.setVisibility(View.VISIBLE);
+
+        // Create a new intent for activate coupon activity
+        // Coupon intent
+        final Intent couponIntent = new Intent(LoginActivity.this,
+            CouponActivity.class);
+        couponIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        // Save username, email, password and result to intent; and pass to
+        // the next activity
+        couponIntent.putExtra("username", username);
+        couponIntent.putExtra("email", email);
+        couponIntent.putExtra("password", password);
+        couponIntent.putExtra("result", response);
+
+        // Start coupon activity
+        LoginActivity.this.startActivity(couponIntent);
+      } else {
+        postResult.setText(resultTag);
+        postResult.setVisibility(View.VISIBLE);
       }
     }
   }
