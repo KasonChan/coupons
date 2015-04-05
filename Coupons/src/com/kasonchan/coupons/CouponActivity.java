@@ -67,24 +67,21 @@ public class CouponActivity extends Activity {
 
     // TODO: Finish up get authentication
     // Login resource for authentication
-    final String[] resourcePersonalized = new String[4];
+    final String[] resourcePersonalized = new String[3];
     resourcePersonalized[0] = "http://api.bluepromocode.com/v2/users/self/promotions/suggestions";
     resourcePersonalized[1] = this.getIntent().getStringExtra("email")
         .toString();
     resourcePersonalized[2] = this.getIntent().getStringExtra("password")
         .toString();
-    resourcePersonalized[3] = this.getIntent().getStringExtra("result")
-        .toString();
 
     Log.i("CouponActivity", resourcePersonalized[0] + "\n"
-        + resourcePersonalized[1] + "\n" + resourcePersonalized[2] + "\n"
-        + resourcePersonalized[3]);
+        + resourcePersonalized[1] + "\n" + resourcePersonalized[2]);
 
     // Get request from the resource
     new GetRequest().execute(resource);
 
     // Get personalized coupon from the resource
-    new GetPersonalized().execute(resourcePersonalized);
+    new GetRequest().execute(resourcePersonalized);
   }
 
   /**
@@ -167,7 +164,7 @@ public class CouponActivity extends Activity {
 
             String description = percentOff + "%" + " Off";
 
-            Log.i("onPostExecute - percentOff", merchantName + " "
+            Log.i("GetRequest-onPostExecute-percentOff", merchantName + " "
                 + description + " " + followsCount);
 
             // Create temp coupon
@@ -194,8 +191,8 @@ public class CouponActivity extends Activity {
 
             final String description = "$" + amountOff + " Off";
 
-            Log.i("onPostExecute - amountOff", merchantName + " " + description
-                + " " + followsCount);
+            Log.i("GetRequest-onPostExecute-amountOff", merchantName + " "
+                + description + " " + followsCount);
 
             // Create temp coupon
             HashMap<String, String> tempCoupon = new HashMap<String, String>();
@@ -231,137 +228,7 @@ public class CouponActivity extends Activity {
 
             final String description = types;
 
-            Log.i("onPostExecute - others", merchantName + " " + description
-                + " " + followsCount);
-
-            // Create temp coupon
-            HashMap<String, String> tempCoupon = new HashMap<String, String>();
-
-            // Save json datas to new coupon
-            tempCoupon.put(MERCHANT_NAME, merchantName);
-            tempCoupon.put(DESCRIPTION, description);
-            tempCoupon.put(FOLLOWS_COUNT, Integer.toString(followsCount));
-
-            // Save temp coupon to the coupon list
-            couponList.add(tempCoupon);
-          }
-        }
-
-        // Log couponList
-        Log.i("onPostExecute - couponList", String.valueOf(couponList.size()));
-        Log.i("onPostExecute - couponList", couponList.toString());
-
-        // Show coupons
-        // Create grid adaptor and set coupon grid
-        GridAdaptor adapter = new GridAdaptor(CouponActivity.this, couponList);
-        GridView grid = (GridView) findViewById(R.id.coupons_grid);
-        grid.setAdapter(adapter);
-
-      } catch (JSONException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
-    }
-  }
-
-  /**
-   * GetPersonalized class extends AsyncTask enables proper and easy use of the
-   * UI thread. This class allows to perform background operations and publish
-   * results on the UI thread without having to manipulate threads and/or
-   * handlers.
-   */
-  private class GetPersonalized extends AsyncTask<String, Void, String> {
-
-    @Override
-    protected String doInBackground(String... args) {
-
-      // Log args
-      Log.i("doInBackground", args[0] + "\n" + args[1] + "\n" + args[2] + "\n"
-          + args[3]);
-
-      // Create new client, build http get request with argument url
-      HttpGet request = new HttpGet(args[0]);
-
-      // Create credentials and then add to request
-      // TODO: Finish up get authentication
-
-      HttpResponse response;
-
-      try {
-        // Execute request
-        response = client.execute(request, context);
-
-        int statusCode = response.getStatusLine().getStatusCode();
-        Log.i("doInBackground - statusCode", String.valueOf(statusCode));
-
-        Log.i("doInBackground - response", response.toString());
-
-        // Append request to result string
-        BufferedReader rd = new BufferedReader(new InputStreamReader(response
-            .getEntity().getContent()));
-
-        StringBuffer result = new StringBuffer();
-        String line = "";
-        while ((line = rd.readLine()) != null) {
-          result.append(line);
-        }
-
-        return result.toString();
-
-        // return "";
-      } catch (ClientProtocolException e) {
-        // Catch client protocol exception
-        e.printStackTrace();
-        return ("ClientProtocolExecption");
-      } catch (IOException e) {
-        // Catch io exception
-        e.printStackTrace();
-        return ("IOExeption");
-      }
-    }
-
-    protected void onPostExecute(String result) {
-
-      Log.i("onPostExecute - result", result);
-
-      final String PROMOTIONS = "promotions";
-      final String SAVINGS = "savings";
-      final String PERCENT_OFF = "percentOff";
-      final String AMOUNT_OFF = "amountOff";
-      final String TYPES = "types";
-      final String MERCHANT = "merchant";
-      final String MERCHANT_NAME = "name";
-      final String FOLLOWS_COUNT = "followsCount";
-      final String DESCRIPTION = "description";
-
-      final ArrayList<HashMap<String, String>> couponList = new ArrayList<HashMap<String, String>>();
-      ;
-
-      try {
-        final JSONObject jsonObj = new JSONObject(result);
-
-        final JSONArray coupons = jsonObj.getJSONArray(PROMOTIONS);
-
-        for (int i = 0; i < coupons.length(); i++) {
-          JSONObject coupon = coupons.getJSONObject(i);
-
-          // Get coupon description
-          final JSONObject savings = coupon.getJSONObject(SAVINGS);
-
-          if (savings.has(PERCENT_OFF) == true) {
-            // Get merchant name
-            final JSONObject merchant = coupon.getJSONObject(MERCHANT);
-            final String merchantName = merchant.getString(MERCHANT_NAME);
-
-            // Get followsCount
-            final int followsCount = coupon.getInt(FOLLOWS_COUNT);
-
-            // If percentOff exists, save it and types
-            final Double percentOff = savings.getDouble(PERCENT_OFF);
-
-            String description = percentOff + "%" + " Off";
-
-            Log.i("onPostExecute - percentOff", merchantName + " "
+            Log.i("GetRequest-onPostExecute-others", merchantName + " "
                 + description + " " + followsCount);
 
             // Create temp coupon
@@ -374,76 +241,13 @@ public class CouponActivity extends Activity {
 
             // Save temp coupon to the coupon list
             couponList.add(tempCoupon);
-
-          } else if (savings.has(AMOUNT_OFF) == true) {
-            // Get merchant name
-            final JSONObject merchant = coupon.getJSONObject(MERCHANT);
-            final String merchantName = merchant.getString(MERCHANT_NAME);
-
-            // Get followsCount
-            final int followsCount = coupon.getInt(FOLLOWS_COUNT);
-
-            // If amountOff exists, save it and types
-            Double amountOff = savings.getDouble(AMOUNT_OFF);
-
-            final String description = "$" + amountOff + " Off";
-
-            Log.i("onPostExecute - amountOff", merchantName + " " + description
-                + " " + followsCount);
-
-            // Create temp coupon
-            HashMap<String, String> tempCoupon = new HashMap<String, String>();
-
-            // Save json datas to new coupon
-            tempCoupon.put(MERCHANT_NAME, merchantName);
-            tempCoupon.put(DESCRIPTION, description);
-            tempCoupon.put(FOLLOWS_COUNT, Integer.toString(followsCount));
-
-            // Save temp coupon to the coupon list
-            couponList.add(tempCoupon);
-          } else {
-            // Get merchant name
-            final JSONObject merchant = coupon.getJSONObject(MERCHANT);
-            final String merchantName = merchant.getString(MERCHANT_NAME);
-
-            // Get followsCount
-            final int followsCount = coupon.getInt(FOLLOWS_COUNT);
-
-            // If the doesn't contain either of both
-            final JSONArray typeArray = savings.getJSONArray(TYPES);
-
-            String types = "";
-
-            if (typeArray.length() > 0)
-              for (int t = 0; t < typeArray.length(); t++) {
-                String type = typeArray.getString(t);
-                if (t == 0)
-                  types = type;
-                else
-                  types = types + "\n" + type;
-              }
-
-            final String description = types;
-
-            Log.i("onPostExecute - others", merchantName + " " + description
-                + " " + followsCount);
-
-            // Create temp coupon
-            HashMap<String, String> tempCoupon = new HashMap<String, String>();
-
-            // Save json datas to new coupon
-            tempCoupon.put(MERCHANT_NAME, merchantName);
-            tempCoupon.put(DESCRIPTION, description);
-            tempCoupon.put(FOLLOWS_COUNT, Integer.toString(followsCount));
-
-            // Save temp coupon to the coupon list
-            couponList.add(tempCoupon);
           }
         }
 
         // Log couponList
-        Log.i("onPostExecute - couponList", String.valueOf(couponList.size()));
-        Log.i("onPostExecute - couponList", couponList.toString());
+        Log.i("GetRequest-onPostExecute-couponList",
+            String.valueOf(couponList.size()));
+        Log.i("GetRequest-onPostExecute-couponList", couponList.toString());
 
         // Show coupons
         // Create grid adaptor and set coupon grid

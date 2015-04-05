@@ -361,7 +361,6 @@ public class LoginActivity extends Activity {
         couponIntent.putExtra("username", username);
         couponIntent.putExtra("email", email);
         couponIntent.putExtra("password", password);
-        couponIntent.putExtra("result", response);
 
         // Start coupon activity
         LoginActivity.this.startActivity(couponIntent);
