@@ -384,9 +384,6 @@ public class SignupActivity extends Activity {
         couponIntent.putExtra("email", email);
         couponIntent.putExtra("password", password);
 
-        // Log coupon intent extra
-        Log.i("onPostExecute", username + "\n" + email + "\n" + password);
-
         // Start coupon activity
         SignupActivity.this.startActivity(couponIntent);
       } else {
