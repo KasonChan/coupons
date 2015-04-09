@@ -12,5 +12,7 @@
     <string name="login">Login</string>
     <string name="signup">Signup</string>
     <string name="favorite">Favorite</string>
+    <string name="popular">Popular</string>
+    <string name="justForYou">Just For You</string>
 
 </resources>

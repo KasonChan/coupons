@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/justForYou" >
+    </TextView>
+
+    <GridView
+        android:id="@+id/coupons_grid"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:columnWidth="90dp"
+        android:gravity="center"
+        android:horizontalSpacing="@dimen/card_padding"
+        android:numColumns="auto_fit"
+        android:padding="@dimen/card_padding"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="@dimen/card_padding" />
+
+</LinearLayout>
