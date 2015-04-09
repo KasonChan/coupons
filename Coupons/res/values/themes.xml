@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- the theme applied to the application or activity -->
+    <style name="ActionBarTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/ActionBar</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabs</item>
+        <item name="android:actionBarTabTextStyle">@style/ActionBarTabText</item>
+        <item name="android:actionMenuTextColor">@color/white_85</item>
+        <item name="android:actionBarDivider">@color/blue</item>
+    </style>
+
+    <!-- ActionBar styles -->
+    <style name="ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@drawable/actionbar_background</item>
+    </style>
+
+    <!-- Action bar tabs styles -->
+    <style name="ActionBarTabs" parent="@android:style/Widget.Holo.ActionBar.TabView">
+        <item name="android:background">@drawable/actionbar_tab_background</item>
+    </style>
+
+    <!-- ActionBar title text -->
+    <style name="ActionBarTitleText" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/white_85</item>
+        <item name="android:textSize">@dimen/textSize_title</item>
+    </style>
+
+    <!-- ActionBar tabs text styles -->
+    <style name="ActionBarTabText" parent="@android:style/Widget.Holo.ActionBar.TabText">
+        <item name="android:textColor">@color/white_85</item>
+        <item name="android:textSize">@dimen/textSize_body1</item>
+    </style>
+
+</resources>

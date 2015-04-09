@@ -7,10 +7,14 @@
 
     <!-- Login and signup -->
     <string name="fullname">Fullname</string>
+    <string name="action_username">Username</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="signup">Signup</string>
     <string name="favorite">Favorite</string>
+    <string name="popular">Popular</string>
+    <string name="justForYou">Just For You</string>
+    <string name="no_coupons_found">No coupons found</string>
 
 </resources>
