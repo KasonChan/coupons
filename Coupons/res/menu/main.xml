@@ -3,10 +3,9 @@
     tools:context="com.kasonchan.coupons.MainActivity" >
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_username"
         android:orderInCategory="100"
-        android:showAsAction="ifRoom"
-        android:title="@string/action_settings"
-        android:icon="@drawable/ic_settings_white_48dp"/>
+        android:showAsAction="always"
+        android:title="@string/action_username"/>
 
 </menu>

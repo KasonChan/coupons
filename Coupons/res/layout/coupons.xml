@@ -13,13 +13,13 @@
         android:background="@color/grey_lighten_2"
         android:orientation="vertical" >
 
-        <!-- Username -->
+        <!-- Error message if any -->
 
         <TextView
-            android:id="@+id/coupons_username"
+            android:id="@+id/coupons_error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/grey_darken_3"
+            android:background="@color/grey_lighten_2"
             android:gravity="center"
             android:padding="@dimen/card_padding"
             android:textColor="@color/white_85" />
@@ -28,6 +28,7 @@
     <!-- Shadow -->
 
     <View
+        android:id="@+id/coupons_error_shadow"
         android:layout_width="match_parent"
         android:layout_height="@dimen/card_zdepth1_height"
         android:background="@color/blue_accent_1" />

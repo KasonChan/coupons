@@ -61,7 +61,7 @@
     <dimen name="verticalSpacing_body">56.0dp</dimen>
 
     <!-- Title spacing -->
-    <dimen name="title_minHeight">56dp</dimen>
+    <dimen name="title_minHeight">72dp</dimen>
 
     <!-- Body spacing -->
     <dimen name="body_minHeight">72dp</dimen>

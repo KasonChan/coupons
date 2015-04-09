@@ -37,9 +37,9 @@ import android.widget.Button;
 public class LoginActivity extends Activity {
 
   // Set up client, context and cookie store for the activity
-  private DefaultHttpClient client      = new DefaultHttpClient();
-  private BasicHttpContext  context     = new BasicHttpContext();
-  private CookieStore       cookieStore = new BasicCookieStore();
+  private DefaultHttpClient client = new DefaultHttpClient();
+  private BasicHttpContext context = new BasicHttpContext();
+  private CookieStore cookieStore = new BasicCookieStore();
 
   @Override
   public void onBackPressed() {
@@ -278,18 +278,18 @@ public class LoginActivity extends Activity {
 
   private class ParseLoginResponse extends AsyncTask<String, Void, String> {
 
-    final String   META       = "meta";
-    final String   ERROR      = "error";
-    final String   USER       = "user";
-    final String   USERS      = "users";
-    final String   USERNAME   = "username";
-    final String   EMAIL      = "email";
+    final String META = "meta";
+    final String ERROR = "error";
+    final String USER = "user";
+    final String USERS = "users";
+    final String USERNAME = "username";
+    final String EMAIL = "email";
 
     final TextView postResult = (TextView) findViewById(R.id.login_result);
-    private String username   = "";
-    private String password   = "";
-    private String email      = "";
-    private String response   = "";
+    private String username = "";
+    private String password = "";
+    private String email = "";
+    private String response = "";
 
     @Override
     protected String doInBackground(String... args) {

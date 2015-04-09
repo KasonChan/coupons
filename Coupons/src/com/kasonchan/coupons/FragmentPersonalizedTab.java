@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.app.Fragment;
 
 @SuppressWarnings("deprecation")
@@ -253,22 +254,23 @@ public class FragmentPersonalizedTab extends Fragment {
           GridView grid = (GridView) getActivity().findViewById(
               R.id.coupons_grid);
           grid.setAdapter(adapter);
+
+          // Hide error message
+          TextView couponError = (TextView) getActivity().findViewById(
+              R.id.coupons_error);
+          View couponErrorShadow = (View) getActivity().findViewById(
+              R.id.coupons_error_shadow);
+          couponError.setVisibility(View.GONE);
+          couponErrorShadow.setVisibility(View.GONE);
         } else {
-          // Create temp coupon
-          HashMap<String, String> tempCoupon = new HashMap<String, String>();
-
-          // Create no result coupon
-          tempCoupon.put(MERCHANT_NAME, "No result");
-          tempCoupon.put(DESCRIPTION, "No result");
-          tempCoupon.put(FOLLOWS_COUNT, "No result");
-
-          // Save temp coupon to the coupon list
-          couponList.add(tempCoupon);
-
-          GridAdaptor adapter = new GridAdaptor(getActivity(), couponList);
-          GridView grid = (GridView) getActivity().findViewById(
-              R.id.coupons_grid);
-          grid.setAdapter(adapter);
+          // Show error message
+          TextView couponError = (TextView) getActivity().findViewById(
+              R.id.coupons_error);
+          View couponErrorShadow = (View) getActivity().findViewById(
+              R.id.coupons_error_shadow);
+          couponError.setText(R.string.no_coupons_found);
+          couponError.setVisibility(View.VISIBLE);
+          couponErrorShadow.setVisibility(View.VISIBLE);
         }
       } else {
         Log.i("ParseCouponResponse-onPostExecute-resultTag", resultTag);

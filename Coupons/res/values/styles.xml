@@ -17,7 +17,7 @@
 
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="android:textSize">@dimen/textSize_body1</item>
-        <item name="android:gravity">center_vertical</item>
+        <item name="android:gravity">center_horizontal</item>
     </style>
 
     <!-- Text -->

@@ -26,6 +26,7 @@ import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
@@ -80,25 +81,20 @@ public class CouponActivity extends Activity {
     actionBar.addTab(personalizedTab, 0, true);
     actionBar.addTab(popularTab, 1, false);
 
-    // Find textview
-    TextView couponUsername = (TextView) findViewById(R.id.coupons_username);
-
     // Set up cookie store
     context.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
+
+    // Fint textview and view
+    TextView couponError = (TextView) findViewById(R.id.coupons_error);
+    View couponErrorShadow = (View) findViewById(R.id.coupons_error_shadow);
+    couponError.setVisibility(View.GONE);
+    couponErrorShadow.setVisibility(View.GONE);
 
     // Get username from login or signup page
     try {
       username = this.getIntent().getStringExtra("username");
       email = this.getIntent().getStringExtra("email");
       password = this.getIntent().getStringExtra("password");
-
-      // If username is not passed from previous intent, hide the username
-      // Otherwise, show username
-      if (username.isEmpty()) {
-        couponUsername.setVisibility(View.GONE);
-      } else {
-        couponUsername.setText("@" + username);
-      }
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -113,8 +109,22 @@ public class CouponActivity extends Activity {
     new getAuthorized().execute(resource);
   }
 
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    // Inflate the menu; this adds items to the action bar if it is present.
+    getMenuInflater().inflate(R.menu.main, menu);
+
+    if (username.isEmpty()) {
+      menu.getItem(0).setTitle("");
+    } else {
+      menu.getItem(0).setTitle("@" + username);
+    }
+
+    return super.onCreateOptionsMenu(menu);
+  }
+
   /**
-   * PostRequest class extends AsyncTask enables proper and easy use of the UI
+   * getAuthorized class extends AsyncTask enables proper and easy use of the UI
    * thread. This class allows to perform background operations and publish
    * results on the UI thread without having to manipulate threads and/or
    * handlers.
